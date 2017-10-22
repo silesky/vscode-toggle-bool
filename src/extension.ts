@@ -1,30 +1,58 @@
-'use strict';
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+
+const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
+  if (editor.selections.length > 1) {
+    return true;
+  }
+  return !editor.selection.isEmpty;
+};
+
+const swapText = textBlob => {
+  const findAndReplace = (textBlob, mapObj) => {
+    const re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+    const textBlobWithReplacements = textBlob.replace(re, matched => mapObj[matched]);
+    return textBlobWithReplacements;
+  }
+  const boolish = {
+    true: false,
+    false: true,
+    0: 1,
+    1: 0
+  };
+ return findAndReplace(textBlob, boolish);
+};
+
+const swapSelectedBool = editor => {
+  console.log('swap selected');
+  if (!editor) return;
+  const selectedText = editor.document.getText(editor.selection);
+  const newText = swapText(selectedText);
+  editor.edit(e => {
+    editor.selections.forEach(selection => e.replace(selection, newText));
+  });
+};
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  console.log('extension activated.');
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "toggle-boolean" is now active!');
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('sup dude.');
-        console.log(vscode.window);
-    });
-
-    context.subscriptions.push(disposable);
+  const editor = vscode.window.activeTextEditor;
+  let disposable = vscode.commands.registerCommand(
+    'extension.toggleBool',
+    () => {
+      // The code you place here will be executed every time your command is executed
+      // Display a message box to the user
+      if (!editor) return;
+      if (hasActiveSelections(editor)) {
+        swapSelectedBool(editor);
+      } else {
+        console.log('no selection');
+      }
+    },
+  );
+  context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {
-}
+export function deactivate() {}
