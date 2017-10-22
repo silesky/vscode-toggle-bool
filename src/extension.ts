@@ -7,24 +7,25 @@ const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
   return !editor.selection.isEmpty;
 };
 
-const swapText = textBlob => {
+const swapText = (textBlob: string) : string => {
   const findAndReplace = (textBlob, mapObj) => {
-    const re = new RegExp(Object.keys(mapObj).join("|"),"gi");
-    const textBlobWithReplacements = textBlob.replace(re, matched => mapObj[matched]);
+    const re = new RegExp(Object.keys(mapObj).join('|'), 'gi');
+    const textBlobWithReplacements = textBlob.replace(
+      re,
+      matched => mapObj[matched],
+    );
     return textBlobWithReplacements;
-  }
+  };
   const boolish = {
     true: false,
     false: true,
     0: 1,
-    1: 0
+    1: 0,
   };
- return findAndReplace(textBlob, boolish);
+  return findAndReplace(textBlob, boolish);
 };
 
-const swapSelectedBool = editor => {
-  console.log('swap selected');
-  if (!editor) return;
+const swapBoolFromSelection = (editor: vscode.TextEditor) : void => {
   const selectedText = editor.document.getText(editor.selection);
   const newText = swapText(selectedText);
   editor.edit(e => {
@@ -32,27 +33,32 @@ const swapSelectedBool = editor => {
   });
 };
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-  console.log('extension activated.');
+const swapBoolFromCursor = (editor: vscode.TextEditor) : void => {
+  const { end } = editor.selection;
+  const wordRange = editor.document.getWordRangeAtPosition(end);
+  const wordUnderCursor = editor.document.getText(wordRange);
+  const newWordUnderCursor = swapText(wordUnderCursor);
+  editor.edit(e => {
+    e.replace(wordRange, newWordUnderCursor);
+  });
+};
 
+export function activate(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
   let disposable = vscode.commands.registerCommand(
     'extension.toggleBool',
     () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
+      //  executed every time the command is executed
       if (!editor) return;
       if (hasActiveSelections(editor)) {
-        swapSelectedBool(editor);
+        swapBoolFromSelection(editor);
       } else {
-        console.log('no selection');
+        swapBoolFromCursor(editor);
       }
     },
   );
   context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
+// method called when extension is deactivated
 export function deactivate() {}
