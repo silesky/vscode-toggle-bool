@@ -2,6 +2,7 @@
 Inspired by the vim plugin, toggle-bool
 
 * Easily toggle between booleans (i.e. true and false).
+* Toggles selected boolean(s), or just the boolean that's beneath the cursor.
 * Default keybinding: `cmd+k b` (or set a custom one).
 
 ## List of boolean values supported:
