@@ -1,38 +1,42 @@
 {
-    "name": "toggle-boolean",
-    "displayName": "Toggle Boolean",
-    "description": "like vim's toggle-boolean",
-    "version": "0.0.1",
-    "publisher": "silesky",
-    "engines": {
-        "vscode": "^1.17.0"
-    },
-    "categories": [
-        "Other"
+  "name": "toggle-boolean",
+  "displayName": "Toggle Boolean",
+  "description": "like vim's toggle-boolean",
+  "version": "0.0.1",
+  "publisher": "silesky",
+  "engines": {
+    "vscode": "^1.17.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:extension.toggleBool"],
+  "main": "./out/extension",
+  "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.toggleBool",
+        "key": "ctrl+k b",
+        "mac": "cmd+k b",
+        "when": "editorTextFocus"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.toggleBool"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.toggleBool",
-                "title": "Make boolean"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.5.3",
-        "vscode": "^1.1.5",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    }
+    "commands": [
+      {
+        "command": "extension.toggleBool",
+        "title": "Toggle Boolean"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.5.3",
+    "vscode": "^1.1.5",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  }
 }
