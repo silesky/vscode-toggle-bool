@@ -21,6 +21,10 @@ const swapText = (textBlob: string) : string => {
     false: true,
     0: 1,
     1: 0,
+    yes: 'no',
+    no: 'yes',
+    on: 'off',
+    off: 'on',
   };
   return findAndReplace(textBlob, boolish);
 };

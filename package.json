@@ -1,7 +1,7 @@
 {
   "name": "toggle-boolean",
   "displayName": "Toggle Boolean",
-  "description": "like vim's toggle-boolean",
+  "description": "Quickly toggle boolean values. Inspired by the vim plugin, toggle-bool.",
   "version": "0.0.1",
   "publisher": "silesky",
   "engines": {
