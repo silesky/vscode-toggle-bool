@@ -1,4 +1,4 @@
-# Toggle Boolean README
+# Toggle Boolean
 Inspired by the vim plugin, toggle-bool
 
 * Easily toggle between booleans (i.e. true and false).
@@ -21,5 +21,6 @@ Inspired by the vim plugin, toggle-bool
 ```
 Copy ^ to your `keybindings.json` and modify where appropriate to override.
 
-
-
+## Links
+* VS Marketplace [Link](https://marketplace.visualstudio.com/items?itemName=silesky.toggle-boolean).
+* Github [Link](https://github.com/silesky/vscode-toggle-bool).
