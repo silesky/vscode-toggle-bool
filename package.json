@@ -2,10 +2,15 @@
     "name": "toggle-boolean",
     "displayName": "Toggle Boolean",
     "description": "Quickly toggle boolean values. Inspired by the vim plugin, toggle-bool.",
-    "version": "0.3.0",
+    "icon": "images/icon_128.png",
+    "version": "0.5.0",
     "publisher": "silesky",
     "engines": {
         "vscode": "^1.17.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/silesky/vscode-toggle-bool.git"
     },
     "categories": [
         "Other"
