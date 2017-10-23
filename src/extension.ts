@@ -7,15 +7,21 @@ const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
   return !editor.selection.isEmpty;
 };
 
-const swapText = (textBlob: string) : string => {
+const swapText = (textBlob: string): string => {
   const findAndReplace = (textBlob, mapObj) => {
     const re = new RegExp(Object.keys(mapObj).join('|'), 'gi');
-    const textBlobWithReplacements = textBlob.replace(
-      re,
-      matched => mapObj[matched],
-    );
+    const textBlobWithReplacements = textBlob.replace(re, matched => {
+      const isUpperCase = matched === matched.toUpperCase();
+      const currentItem = mapObj[matched.toLowerCase()];
+      if (currentItem === undefined) return matched; // unneccessary, but just to check.
+      const match = isUpperCase
+        ? currentItem.toString().toUpperCase()
+        : currentItem;
+      return match;
+    });
     return textBlobWithReplacements;
   };
+
   const boolish = {
     true: false,
     false: true,
@@ -26,10 +32,12 @@ const swapText = (textBlob: string) : string => {
     on: 'off',
     off: 'on',
   };
-  return findAndReplace(textBlob, boolish);
+
+  const swappedText = findAndReplace(textBlob, boolish);
+  return swappedText; // re-capitalize
 };
 
-const swapBoolFromSelection = (editor: vscode.TextEditor) : void => {
+const swapBoolFromSelection = (editor: vscode.TextEditor): void => {
   const selectedText = editor.document.getText(editor.selection);
   const newText = swapText(selectedText);
   editor.edit(e => {
@@ -37,7 +45,7 @@ const swapBoolFromSelection = (editor: vscode.TextEditor) : void => {
   });
 };
 
-const swapBoolFromCursor = (editor: vscode.TextEditor) : void => {
+const swapBoolFromCursor = (editor: vscode.TextEditor): void => {
   const { end } = editor.selection;
   const wordRange = editor.document.getWordRangeAtPosition(end);
   const wordUnderCursor = editor.document.getText(wordRange);
