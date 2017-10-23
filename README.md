@@ -3,7 +3,7 @@ Inspired by the vim plugin, toggle-bool
 
 * Easily toggle between booleans (i.e. true and false).
 * Toggles selected boolean(s), or just the boolean that's beneath the cursor.
-* Default keybinding: `cmd+k b` (or set a custom one).
+* Default keybinding: `alt+b` (or set a custom one).
 
 ## List of boolean values supported:
 * true <-> false
@@ -15,12 +15,12 @@ Inspired by the vim plugin, toggle-bool
 * Extension adds the following keybinding:
 ```js
   {
-    "key": "cmd+k b",
+    "key": "alt+b",
     "command": "extension.toggleBool",
     "when": "editorTextFocus"
   }
 ```
-Copy ^ to your `keybindings.json` and modify where appropriate to override.
+Copy ^ to your `keybindings.json` and customize to override.
 
 ## Links
 * VS Marketplace [Link](https://marketplace.visualstudio.com/items?itemName=silesky.toggle-boolean).
