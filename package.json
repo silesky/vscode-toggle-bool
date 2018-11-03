@@ -46,5 +46,8 @@
         "vscode": "^1.1.5",
         "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "npm": "^6.4.1"
     }
 }
