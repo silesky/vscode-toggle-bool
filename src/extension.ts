@@ -1,40 +1,11 @@
 import * as vscode from 'vscode';
+import { swapText } from './utils';
 
 const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
   if (editor.selections.length > 1) {
     return true;
   }
   return !editor.selection.isEmpty;
-};
-
-const swapText = (textBlob: string): string => {
-  const findAndReplace = (textBlob, mapObj) => {
-    const re = new RegExp(Object.keys(mapObj).join('|'), 'gi');
-    const textBlobWithReplacements = textBlob.replace(re, matched => {
-      const isUpperCase = matched === matched.toUpperCase();
-      const currentItem = mapObj[matched.toLowerCase()];
-      if (currentItem === undefined) return matched; // unneccessary, but just to check.
-      const match = isUpperCase
-        ? currentItem.toString().toUpperCase()
-        : currentItem;
-      return match;
-    });
-    return textBlobWithReplacements;
-  };
-
-  const boolish = {
-    true: false,
-    false: true,
-    0: 1,
-    1: 0,
-    yes: 'no',
-    no: 'yes',
-    on: 'off',
-    off: 'on',
-  };
-
-  const swappedText = findAndReplace(textBlob, boolish);
-  return swappedText; // re-capitalize
 };
 
 const swapBoolFromSelection = (editor: vscode.TextEditor): void => {

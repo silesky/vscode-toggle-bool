@@ -10,13 +10,21 @@ import * as assert from 'assert';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import * as myExtension from '../extension';
-
-// Defines a Mocha test suite to group tests of similar kind together
-suite("Extension Tests", () => {
-
-    // Defines a Mocha unit test
-    test("Something 1", () => {
-        assert.equal(-1, [1, 2, 3].indexOf(5));
-        assert.equal(-1, [1, 2, 3].indexOf(0));
-    });
+import { swapText } from '../utils';
+suite('swapText', () => {
+  test('should swap vanilla individual worlds', () => {
+    assert.equal(swapText('False'), 'True');
+    assert.equal(swapText('True'), 'False');
+    assert.equal(swapText('FALSE'), 'TRUE');
+    assert.equal(swapText('TRUE'), 'FALSE');
+    assert.equal(swapText('false'), 'true');
+    assert.equal(swapText('0'), '1');
+    assert.equal(swapText('1'), '0');
+  });
+  test('should work with blobs of text', () => {
+    assert.equal(
+      swapText('TRUE\nFALSE\nfoobarbazTrue\nFalse'),
+      'FALSE\nTRUE\nfoobarbazFalse\nTrue',
+    );
+  });
 });
