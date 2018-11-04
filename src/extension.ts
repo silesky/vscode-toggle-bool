@@ -27,12 +27,12 @@ const swapBoolFromCursor = (editor: vscode.TextEditor): void => {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  const editor = vscode.window.activeTextEditor;
   let disposable = vscode.commands.registerCommand(
     'extension.toggleBool',
     () => {
+      const editor = vscode.window.activeTextEditor;
       //  executed every time the command is executed
-      if (!editor) return;
+      if (!editor || editor.document.isClosed) return;
       if (hasActiveSelections(editor)) {
         swapBoolFromSelection(editor);
       } else {
@@ -44,4 +44,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // method called when extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+}
