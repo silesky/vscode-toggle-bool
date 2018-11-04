@@ -3,7 +3,7 @@
     "displayName": "Toggle Boolean",
     "description": "Quickly toggle boolean values. Inspired by the vim plugin, toggle-bool.",
     "icon": "images/icon_128.png",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "publisher": "silesky",
     "engines": {
         "vscode": "^1.17.0"
