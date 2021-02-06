@@ -6,6 +6,10 @@
         "lib": [
             "es6"
         ],
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "removeComments": false,
         "sourceMap": true,
         "rootDir": "src"
     },
