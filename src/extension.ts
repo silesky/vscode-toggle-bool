@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import { swapText } from './utils';
+import * as vscode from "vscode";
+import { swapText } from "./utils";
 
 const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
   if (editor.selections.length > 1) {
@@ -9,10 +9,11 @@ const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
 };
 
 const swapBoolFromSelection = (editor: vscode.TextEditor): void => {
+  vscode.workspace.getConfiguration("");
   const selectedText = editor.document.getText(editor.selection);
   const newText = swapText(selectedText);
-  editor.edit(e => {
-    editor.selections.forEach(selection => e.replace(selection, newText));
+  editor.edit((e) => {
+    editor.selections.forEach((selection) => e.replace(selection, newText));
   });
 };
 
@@ -21,14 +22,15 @@ const swapBoolFromCursor = (editor: vscode.TextEditor): void => {
   const wordRange = editor.document.getWordRangeAtPosition(end);
   const wordUnderCursor = editor.document.getText(wordRange);
   const newWordUnderCursor = swapText(wordUnderCursor);
-  editor.edit(e => {
+  editor.edit((e) => {
+    if (!wordRange) return undefined;
     e.replace(wordRange, newWordUnderCursor);
   });
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand(
-    'extension.toggleBool',
+  const disposable = vscode.commands.registerCommand(
+    "extension.toggleBool",
     () => {
       const editor = vscode.window.activeTextEditor;
       //  executed every time the command is executed
@@ -38,11 +40,10 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         swapBoolFromCursor(editor);
       }
-    },
+    }
   );
   context.subscriptions.push(disposable);
 }
 
 // method called when extension is deactivated
-export function deactivate() {
-}
+export function deactivate() {}

@@ -6,7 +6,7 @@
     "version": "0.9.1",
     "publisher": "silesky",
     "engines": {
-        "vscode": "^1.17.0"
+        "vscode": "^1.42.0"
     },
     "repository": {
         "type": "git",
@@ -18,8 +18,28 @@
     "activationEvents": [
         "onCommand:extension.toggleBool"
     ],
-    "main": "./out/extension",
+    "main": "./out/src/extension.js",
     "contributes": {
+        "configuration": {
+            "title": "Toggle Boolean",
+            "properties": {
+                "toggleboolean.mapping": {
+                    "title": "Toggle Boolean Configuration",
+                    "type": "object",
+                    "description": "Map of arguments in {\"true\": \"false\"} format.",
+                    "default": {
+                        "0": 1,
+                        "1": 0,
+                        "true": false,
+                        "false": true,
+                        "yes": "no",
+                        "no": "yes",
+                        "on": "off",
+                        "off": "on"
+                    }
+                }
+            }
+        },
         "keybindings": [
             {
                 "command": "extension.toggleBool",
@@ -38,25 +58,29 @@
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test",
+        "test": "npm run compile && node out/src/test/runTests.js",
         "lint": "eslint src/**/*.ts",
         "fix": "npm run lint --fix",
         "upgrade-interactive": "npm-check --update"
     },
     "devDependencies": {
+        "@types/glob": "^7.1.3",
         "@types/mocha": "^8.2.0",
         "@types/node": "^14.14.25",
+        "@types/vscode": "1.42.0",
         "@typescript-eslint/eslint-plugin": "^4.14.2",
         "@typescript-eslint/parser": "^4.14.2",
         "eslint": "^7.19.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-prettier": "^3.1.4",
+        "glob": "^7.1.6",
+        "mocha": "^8.2.1",
         "npm-check": "^5.9.2",
         "prettier": "^2.1.2",
+        "source-map-support": "^0.5.19",
         "typescript": "^4.1.3",
-        "vscode": "^1.1.37"
+        "vscode-test": "^1.5.0"
     },
     "dependencies": {
         "npm": "^7.5.2"

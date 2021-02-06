@@ -1,6 +1,7 @@
 {
 	"version": "0.2.0",
-	"configurations": [{
+	"configurations": [
+		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
@@ -10,6 +11,20 @@
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
+			],
+			"preLaunchTask": "npm: watch"
+		},
+		{
+			"name": "Run Extension Tests",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/test/**/*.js"
 			],
 			"preLaunchTask": "npm: watch"
 		}
