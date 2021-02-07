@@ -14,10 +14,10 @@ function exists<T>(v: T): v is NonNullable<T> {
 const getCursorSelection = (editor: vscode.TextEditor): vscode.Range[] => {
   const hasRegularSelection = hasActiveSelections(editor);
   if (hasRegularSelection) return [];
-  const words = editor.selections
+  const wordRanges = editor.selections
     .map((e) => editor.document.getWordRangeAtPosition(e.end))
     .filter(exists);
-  return words;
+  return wordRanges;
 };
 
 const hasCursorSelection = (editor: vscode.TextEditor): boolean => {
@@ -27,35 +27,33 @@ const hasCursorSelection = (editor: vscode.TextEditor): boolean => {
 const swapBoolFromSelection = async (editor: vscode.TextEditor) => {
   const selectedText = editor.document.getText(editor.selection);
   const newText = swapText(selectedText);
-  await editor.edit((e) => {
+  return editor.edit((e) => {
     editor.selections.forEach((selection) => e.replace(selection, newText));
   });
 };
 
 const swapBoolFromCursor = async (editor: vscode.TextEditor) => {
   const wordRanges = getCursorSelection(editor);
-  for (const range of wordRanges) {
-    const wordUnderCursor = editor.document.getText(range);
-    const newWordUnderCursor = swapText(wordUnderCursor);
-    // the async behavior is important for _all_ of the edits to complete successfully
-    // without returning a promise that is awaited on, it will only successfully complete one of the edits.
-    await editor.edit((e) => {
+  return editor.edit((e) => {
+    wordRanges.forEach((range) => {
+      const wordUnderCursor = editor.document.getText(range);
+      const newWordUnderCursor = swapText(wordUnderCursor);
       e.replace(range, newWordUnderCursor);
     });
-  }
+  });
 };
 
 export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand(
     "extension.toggleBool",
-    async () => {
+    () => {
       const editor = vscode.window.activeTextEditor;
       //  executed every time the command is executed
       if (!editor || editor.document.isClosed) return;
       if (hasActiveSelections(editor)) {
-        await swapBoolFromSelection(editor);
+        swapBoolFromSelection(editor);
       } else if (hasCursorSelection(editor)) {
-        await swapBoolFromCursor(editor);
+        swapBoolFromCursor(editor);
       }
     }
   );
