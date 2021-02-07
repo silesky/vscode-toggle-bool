@@ -1,0 +1,26 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - "*"
+    tags-ignore:
+      - "*"
+jobs:
+  tests:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
+
+      - run: npm run test

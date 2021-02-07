@@ -59,3 +59,10 @@ Inspired by the vim plugin, toggle-bool
 
 - VS Marketplace [Link](https://marketplace.visualstudio.com/items?itemName=silesky.toggle-boolean).
 - Github [Link](https://github.com/silesky/vscode-toggle-bool).
+
+# Development
+
+```
+npm install
+npm run test
+```
