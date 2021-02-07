@@ -1,6 +1,9 @@
 name: CI-CD
 
 on:
+  pull-request:
+    branches:
+      - master
   push:
     branches:
       - "*"
