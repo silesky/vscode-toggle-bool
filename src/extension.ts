@@ -9,7 +9,6 @@ const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
 };
 
 const swapBoolFromSelection = (editor: vscode.TextEditor): void => {
-  vscode.workspace.getConfiguration("");
   const selectedText = editor.document.getText(editor.selection);
   const newText = swapText(selectedText);
   editor.edit((e) => {
