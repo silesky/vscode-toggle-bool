@@ -38,10 +38,5 @@ const findAndReplace = (textBlob: string, mapObj: AnyMap) => {
 
 export const swapText = (textBlob: string): string => {
   const boolMap = getUserMappingConfiguration();
-  if (boolMap) {
-    const swappedText = findAndReplace(textBlob, boolMap);
-    return swappedText; // re-capitalize
-  } else {
-    return textBlob;
-  }
+  return boolMap ? findAndReplace(textBlob, boolMap) : textBlob;
 };
