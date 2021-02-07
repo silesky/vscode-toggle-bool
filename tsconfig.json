@@ -1,18 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
-        "outDir": "out",
+        "target": "es2019",
         "lib": [
-            "es6"
+            "ES2019"
         ],
-        "moduleResolution": "node",
         "resolveJsonModule": true,
-        "isolatedModules": true,
-        "removeComments": false,
+        "outDir": "out",
+        "skipLibCheck": true,
         "sourceMap": true,
-        "rootDir": "src"
+        "strict": true,
     },
+    "include": [
+        "src/**/*.ts",
+        "package.json"
+    ],
     "exclude": [
         "node_modules",
         ".vscode-test"

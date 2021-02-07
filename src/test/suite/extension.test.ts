@@ -2,13 +2,13 @@
 // Note: This example test is leveraging the Mocha test framework.
 // Please refer to their documentation on https://mochajs.org/ for help.
 //
-
 // The module 'assert' provides assertion methods from node
 import * as assert from "assert";
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
-import { swapText } from "../utils";
+import { swapText } from "../../utils";
+
 suite("swapText", () => {
   test("should swap vanilla individual worlds", () => {
     assert.strictEqual(swapText("False"), "True");
