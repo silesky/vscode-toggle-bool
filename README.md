@@ -15,9 +15,10 @@ Inspired by the vim plugin, toggle-bool
 
 ## Keybinding
 
-- Extension adds the following keybinding:
+- Extension adds the following keybinding.
 
 ```json
+// Copy to your `keybindings.json` and customize to override.
 {
   "key": "alt+b",
   "command": "extension.toggleBool",
@@ -25,11 +26,12 @@ Inspired by the vim plugin, toggle-bool
 }
 ```
 
-Copy ^ to your `keybindings.json` and customize to override.
+## Custom boolean mapping
 
-## You can override the default booleans in your `settings.json`, and even create a
+- You can override the default boolean mapping.
 
 ```json
+ // Boolean mappings can be set in settings.json
   ...
   "toggleboolean.mapping": {
     "true": false,
@@ -41,7 +43,7 @@ Copy ^ to your `keybindings.json` and customize to override.
   },
 ```
 
-## You can define mappings in both directions, so you can even create a linear state machine.
+## Mappings are defined in both directions, so you can create a linear state machine.
 
 ```json
   ...
