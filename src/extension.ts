@@ -1,5 +1,5 @@
-import * as vscode from "vscode";
-import { swapText } from "./utils";
+import * as vscode from 'vscode';
+import { swapText } from './utils';
 
 // is anything actually selected (not simply a stray cursor)
 const hasActiveSelections = (editor: vscode.TextEditor): boolean => {
@@ -45,7 +45,7 @@ const swapBoolFromCursor = async (editor: vscode.TextEditor) => {
 
 export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand(
-    "extension.toggleBool",
+    'extension.toggleBool',
     () => {
       const editor = vscode.window.activeTextEditor;
       //  executed every time the command is executed

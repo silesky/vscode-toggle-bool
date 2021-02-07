@@ -59,8 +59,8 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "test": "npm run compile && node out/test/runTests.js",
-        "lint": "tsc --noEmit && eslint src/**/*.ts",
-        "fix": "npm run lint --fix",
+        "lint": "tsc --noEmit && eslint ./src/**/**",
+        "fix": "npm run lint -- --fix",
         "upgrade-interactive": "npm-check --update"
     },
     "devDependencies": {
