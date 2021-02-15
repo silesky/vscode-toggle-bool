@@ -1,18 +1,18 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
 type AnyMap = Record<string, unknown>;
 
 function getUserMappingConfiguration(): AnyMap | undefined {
   const result = vscode.workspace
     .getConfiguration()
-    .get("toggleboolean.mapping");
+    .get('toggleboolean.mapping');
   if (result) {
     return JSON.parse(JSON.stringify(result));
   }
 }
 
 const findAndReplace = (textBlob: string, mapObj: AnyMap) => {
-  const re = new RegExp(Object.keys(mapObj).join("|"), "gi");
+  const re = new RegExp(Object.keys(mapObj).join('|'), 'gi');
   const textBlobWithReplacements = textBlob.replace(re, (matched) => {
     const isUpperCase = matched === matched.toUpperCase();
     const isFirstUpperCase =
